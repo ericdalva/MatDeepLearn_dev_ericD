@@ -303,6 +303,8 @@ class EquivariantMultiHeadAttention(MessagePassing):
 
         self.vec_proj = nn.Linear(hidden_channels, hidden_channels * 3, bias=False)
 
+        self.dropout = torch.nn.Dropout(0.2)
+
         self.dk_proj = None
         if distance_influence in ["keys", "both"]:
             self.dk_proj = nn.Linear(num_rbf, hidden_channels)
@@ -383,6 +385,7 @@ class EquivariantMultiHeadAttention(MessagePassing):
 
         # attention activation function
         attn = self.attn_activation(attn) * self.cutoff(r_ij).unsqueeze(1)
+        attn = self.dropout(attn)
 
         # value pathway
         if dv is not None:

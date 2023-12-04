@@ -152,7 +152,7 @@ class PropertyTrainer(BaseTrainer):
                 if epoch % self.train_verbosity == 0:
                     #ED -changed to save tain/val loss
                     train_error.append(self.metrics[type(self.loss_fn).__name__]["metric"])
-                    val_error.append(val_loss = val_metrics[type(self.loss_fn).__name__]["metric"])
+                    val_error.append(metric[type(self.loss_fn).__name__]["metric"])
                     epoch_number.append(epoch)
                     self.save_results(
                         np.column_stack((np.asarray(epoch_number), np.asarray(val_error), np.asarray(train_error))), "train_results", "epoch_training_error_validation_error.csv", True
